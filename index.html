@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+<meta http-equiv="refresh" content="300" />
+<html>
+    <body>
+        <h1 style="font-family: Orbitron, sans-serif;">
+            MMR + Rank onStream 012345
+        </h1>
+    </body>
+<script>
+    var mmr_message = "";
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", "https://www.mk8dx-lounge.com/api/player?name=x3", false);
+	//xhr.responseType = "document";
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+	xhr.onerror = function() {
+		console.error(xhr.status, xhr.statusText);
+		mmr_message = "Website is currently down";
+	}		
+	xhr.onload = function() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			var json_data = JSON.parse(this.responseText);
+			var data= [];
+			for (var i in json_data) {
+				data.push([i,json_data[i]]);
+			} 
+            console.log(data);
+			mmr_message = `MMR of ${argument}: Player not found`;
+			if(data.some(row => row.includes("mmr"))) {
+				for(var i in data) {
+					if (data[i][0] == 'mmr') {
+						mmr_message = data[i][1];
+						break;
+					}	
+				}	
+			}
+		}
+	}
+	xhr.send();
+    console.log(mmr_message);
+</script>
+</html>
