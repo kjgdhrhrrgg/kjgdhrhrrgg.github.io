@@ -12,7 +12,7 @@
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", "https://www.mk8dx-lounge.com/api/player?name=x3", false);
 	//xhr.responseType = "document";
-    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
 	xhr.onerror = function() {
 		console.error(xhr.status, xhr.statusText);
 		mmr_message = "Website is currently down";
