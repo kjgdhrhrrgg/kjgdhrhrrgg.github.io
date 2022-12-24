@@ -5,11 +5,15 @@
 	<style>
 		@font-face {
 			font-family: 'DS-FONT';
-			src: url("https://www.dafont.com/digital-7.font");
+			src: url("https://www.1001fonts.com/download_font.php?fid=86977");
 		}
 		div {
 			font-family: 'DS-FONT';
 			font-size: 64px; 
+		}
+		p {
+			display: inline-block;
+			background-color: rgba(0,0,0,0.3);
 		}
 	</style>
   	</head>
@@ -28,7 +32,7 @@
 
     <script>
     	function getMMR() {
-			const username = document.getElementById('username').value;
+			const username = encodeURIComponent(document.getElementById('username').value);
 			const url = `https://mk8dx-lounge.com/api/player?name=${username}`;
 			fetch(url)
 			.then(response => response.json())
