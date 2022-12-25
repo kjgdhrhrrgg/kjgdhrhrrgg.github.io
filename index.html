@@ -2,34 +2,57 @@
 <html>
   <head>
     <title>MMR OBS Overlay</title>
+	<meta name="twitter:site" content="@kj_mk8dx"> 
 	<style>
 		@font-face {
 			font-family: 'DS-FONT';
 			src: url(./fonts/digital-7.ttf);
 		}
-		div {
-			font-family: 'DS-FONT';
-			font-size: 64px; 
+		img {
+			float: left;
+			margin-right: 20px;
+			vertical-align: middle;			
 		}
-		p {
-			display: inline-block;
-			background-color: rgba(0,0,0,0.3);
+		p#mmr-output {
+			font-family: 'DS-FONT';
+			font-size: 80px; 
+			color: white;
+			display: table-cell;
+			vertical-align: middle;
+			background-color: rgba(0,0,0,0.1);
+		}
+		p.filler {
+			padding: 4px;
+			margin: 0;
+			color: rgba(0,0,0,0.0);
+		}
+		form {
+			font-size: 40px;
+			margin-top: 250px;
+		}
+		body {
+			background-color: darkgray;
 		}
 	</style>
   	</head>
   	<body>
 	<div id="output">
-		<img id="mmr-rank" src="">
-		<p id = "mmr-output"></p>
+		<img id="mmr-rank" src="https://cdn.discordapp.com/emojis/776179743091195935.webp?size=240&quality=lossless">
+		<p class="filler">Fill the text for nothing POG</p>
+		<p id ="mmr-output">Undefined</p>
+		<p class="filler">Fill the next for nothing POG</p>
 	</div>
 	
 	<form>
     	<label for="username">Username:</label><br>
     	<input type="text" id="username" name="username"><br>
+		<input type="radio" name="color" id="standard-color" value="white" onchange="updateColor()" checked>
+		
+		<label for="standard-color">Standard color (white)</label><br>
+		<input type="radio" name="color" id="custom-color" value="red" onchange="updateColor()">
+		<label for="custom-color">Custom color</label><br>
     	<input type="button" value="Submit" onclick="getMMR()">
     </form> 
-    <br>
-
     <script>
     	function getMMR() {
 			const username = encodeURIComponent(document.getElementById('username').value);
@@ -39,49 +62,72 @@
 			.then(data => {
 				const mmr = data.mmr;
 				document.getElementById('mmr-output').innerHTML = `${mmr}`;
+
+				let color;
+				
 				// Display rank icon, icon links from 150cc discord
 				// Iron
 				if(mmr < 2000) {
 					document.getElementById('mmr-rank').src = 'https://cdn.discordapp.com/emojis/731579735544430703.webp?size=240&quality=lossless';
+					color = rgba(128,120,120,255);
 				}
 				// Bronze
 				else if(mmr >= 2000 && mmr < 4000) {
 					document.getElementById('mmr-rank').src = 'https://cdn.discordapp.com/emojis/731579759712010320.webp?size=240&quality=lossless';
+					color = rgba(206,60,3,255);
 				}
+
 				// Silver
 				else if(mmr >= 4000 && mmr < 6000) {
 					document.getElementById('mmr-rank').src = 'https://cdn.discordapp.com/emojis/731579781828575243.webp?size=240&quality=lossless';
+					color = rgba(181,181,183,255);
 				}
 				// Gold
 				else if(mmr >= 6000 && mmr < 8000) {
 					document.getElementById('mmr-rank').src = 'https://cdn.discordapp.com/emojis/731579798111125594.webp?size=240&quality=lossless';
+					color = rgba(234,176,78,255);
 				}
 				// Platin
 				else if(mmr >= 8000 && mmr < 10000) {
 					document.getElementById('mmr-rank').src = 'https://cdn.discordapp.com/emojis/542204444302114826.webp?size=240&quality=lossless';
+					color = rgba(4,82,99,255);
 				}
 				// Sapphire
 				else if(mmr >= 10000 && mmr < 12000) {
 					document.getElementById('mmr-rank').src = 'https://cdn.discordapp.com/emojis/731579851802411068.webp?size=240&quality=lossless';
+					color = rgba(42,108,206,255);
 				}
 				// Ruby
 				else if(mmr >= 12000 && mmr < 14000) {
 					document.getElementById('mmr-rank').src = 'https://cdn.discordapp.com/emojis/1053874483880005663.webp?size=240&quality=lossless';
+					color = rgba(211,28,95,255);
 				}
 				// Diamond
 				else if(mmr >= 14000 && mmr < 16000) {
 					document.getElementById('mmr-rank').src = 'https://cdn.discordapp.com/emojis/731579813386780722.webp?size=240&quality=lossless';
+					color = rgba(5,160,195,255);
 				}
 				// Master
 				else if(mmr >= 16000 && mmr < 17000) {
 					document.getElementById('mmr-rank').src = 'https://cdn.discordapp.com/emojis/731597294914502737.webp?size=240&quality=lossless';
+					color = rgba(189,204,218,255);
 				}
 				// Grandmaster
 				else if(mmr >= 17000) {
 					document.getElementById('mmr-rank').src = 'https://cdn.discordapp.com/emojis/731579876846338161.webp?size=240&quality=lossless';
+					color = rgba(131,12,44,255);
 				}
-
+				else {
+					document.getElementById('mmr-rank').src = "https://cdn.discordapp.com/emojis/776179743091195935.webp?size=240&quality=lossless";
+					color = rgba(255,255,255,255);
+				}
 			});
+			if (document.getElementById('custom-color').checked) {
+				document.getElementById('mmr-output').style.color = color;
+			} else {
+				document.getElementById('mmr-output').style.color = rgba(255,255,255,255);
+			}
+
 		}
     	</script>
   	</body>
