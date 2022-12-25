@@ -56,8 +56,12 @@
     <script>
     	function getMMR() {
 			const username = encodeURIComponent(document.getElementById('username').value);
-			const url = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://mk8dx-lounge.com/api/player?name=${username}`)}`;
-			fetch(url)
+			const url = `https://proxy.cors.sh/https://mk8dx-lounge.com/api/player?name=${username}`;
+			fetch(url,{
+				headers: {
+					'Access-Control-Allow-Origin': '*'
+				}
+			})
 			.then(response => response.json())
 			.then(data => {
 				const mmr = data.mmr;
