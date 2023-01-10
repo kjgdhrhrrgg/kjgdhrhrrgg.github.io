@@ -39,7 +39,7 @@
 	<div id="output">
 		<img id="mmr-rank" src="https://cdn.discordapp.com/emojis/776179743091195935.webp?size=240&quality=lossless">
 		<p class="filler">Fill the text for nothing POG</p>
-		<p id ="mmr-output">NULL</p>
+		<p id ="mmr-output">----</p>
 		<p class="filler">Fill the next for nothing POG</p>
 	</div>
 	
@@ -50,11 +50,19 @@
 		
 		<label for="standard-color">Standard color (white)</label><br>
 		<input type="radio" name="color" id="custom-color" value="red">
-		<label for="custom-color">Custom color</label><br>
+		<label for="custom-color">Rank color</label><br>
     	<input type="button" value="Submit" onclick="getMMR()">
     </form> 
     <script>
-    	function getMMR() {
+		document.addEventListener('DOMContentLoaded', function(){
+			document.getElementById('username').value = localStorage.getItem('usernameValue');
+			
+		});		
+		function localSave(name) {
+			localStorage.setItem('usernameValue', decodeURIComponent(name));
+		}
+
+		function getMMR() {
 			const username = encodeURIComponent(document.getElementById('username').value);
 			const encodedParams = new URLSearchParams();
 			encodedParams.append("my-url", `https://mk8dx-lounge.com/api/player?name=${username}`)
@@ -68,6 +76,15 @@
 				},
 				body: encodedParams
 			};
+			
+			// Save in local storage? --> it works, but i dont understand why
+			// just did an extra function but tbh i dont need this lol
+			localSave(username);
+			/* var interval = setInterval(function () {
+				console.log('test');
+			},
+			10000); */
+			
 			fetch(url, options)
 			.then(response => response.json())
 			.then(data => {
@@ -139,13 +156,7 @@
 				}
 				document.getElementById('mmr-output').innerHTML = `${mmr}`;
 			});
-			document.getElementById('username').addEventListener('Submit', function(event){
-			event.preventDefault();
-			localStorage.setItem('usernameValue', document.getElementById('username').value);
-			});
-			document.addEventListener('DOMContentLoaded', function(){
-				document.getElementById('username').value = localStorage.getItem('usernameValue');
-			});
+			
 		}
 		
     	</script>
