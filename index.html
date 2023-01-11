@@ -46,13 +46,18 @@
 	<form>
     	<label for="username">Username:</label><br>
     	<input type="text" id="username" name="username"><br>
-		<input type="radio" name="color" id="standard-color" value="white" checked>
 		
+		<input type="radio" name="color" id="standard-color" value="white" checked>
 		<label for="standard-color">Standard color (white)</label><br>
+		
 		<input type="radio" name="color" id="custom-color" value="red">
 		<label for="custom-color">Rank color</label><br>
-    	<input type="button" value="Submit" onclick="getMMR()">
+    	
+		<input type="button" value="Submit" onclick="getMMR()">
     </form> 
+	<div id="info">
+		<label for="test">For more questions: https://discord.gg/mfp8dqBm2J</label>
+	</div>
     <script>
 		document.addEventListener('DOMContentLoaded', function(){
 			document.getElementById('username').value = localStorage.getItem('usernameValue');
